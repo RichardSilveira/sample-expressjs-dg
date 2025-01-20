@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const { IpFilter, IpDeniedError } = require('express-ipfilter');
 
@@ -8,13 +9,9 @@ const port = process.env.PORT || 3000;
 app.set('trust proxy', true);
 
 // List of allowed IPs
-const allowedIps = [
-  '88.216.232.93',  // Example external IP
-  '54.70.220.35',   // Example external IP
-  '52.12.48.252',   // Example external IP
-  '127.0.0.1',      // IPv4 localhost
-  '::1'             // IPv6 localhost
-];
+require('dotenv').config();
+
+const allowedIps = process.env.ALLOWED_IPS.split(',');
 
 // Custom detectIp function for better IP detection
 const detectIp = (req) => {
